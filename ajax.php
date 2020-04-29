@@ -117,6 +117,9 @@ switch ($action) {
         break;
 }
 
+if (mb_strlen($content) < 200) {
+    $content = '<div style="font-size: 150%; text-align: center;">По вашему запросу ничего не найдено</div>' . $content;
+}
 
 echo json_encode(['action' => $action, 'type' => $type, 'page' => $page, 'html' => $content]);
 

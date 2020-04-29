@@ -2,6 +2,21 @@ var type = 'book';
 $(document).ready(function () {
     // init
     send_request_profspo(type);
+
+    $('.profspo-form-control').keypress(function (event) {
+        var keycode = (event.keyCode ? event.keyCode : event.which);
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            document.getElementById("profspo-filter-apply").click();
+        }
+    });
+
+    $('.profspo-nav-link').click(function (e) {
+        $(".profspo-nav-link").removeClass("active");
+        $(this).addClass("active");
+        $(".profspo-tab-pane").removeClass("active");
+        $('#profspo-' + $(this).data("type")).addClass("active");
+    })
 });
 
 // tab
