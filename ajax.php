@@ -49,6 +49,8 @@ switch ($action) {
                 $booksCollection->setOffset($booksCollection->getLimit() * $page);
                 $booksCollection->get();
 
+                $message = $booksCollection->getMessage();
+
                 foreach ($booksCollection as $book) {
                     $autoLoginUrl = $integrationManager->generateLoginOrRegisterUrl($USER->email, $USER->email,
                         User::STUDENT, 'books/' . $book->getId());
@@ -85,6 +87,8 @@ switch ($action) {
                 $journalsCollection->setOffset($journalsCollection->getLimit() * $page);
                 $journalsCollection->get();
 
+                $message = $journalsCollection->getMessage();
+
                 foreach ($journalsCollection as $journal) {
                     $autoLoginUrl = $integrationManager->generateLoginOrRegisterUrl($USER->email, $USER->email,
                         User::STUDENT, 'magazines/' . $journal->getId());
@@ -118,7 +122,7 @@ switch ($action) {
 }
 
 if (mb_strlen($content) < 200) {
-    $content = '<div style="font-size: 150%; text-align: center;">По вашему запросу ничего не найдено</div>' . $content;
+    $content = '<div style="font-size: 150%; text-align: center;">' . $message . '</div>' . $content;
 }
 
 echo json_encode(['action' => $action, 'type' => $type, 'page' => $page, 'html' => $content]);
